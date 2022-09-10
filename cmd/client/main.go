@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/o-sokol-o/grpc_log_server/internal/client"
+	"github.com/o-sokol-o/grpc_log_server/pkg/client"
 )
 
 func main() {
