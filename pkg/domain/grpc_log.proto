@@ -1,0 +1,38 @@
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative pkg/domain/grpc_log.proto
+
+syntax = "proto3";
+
+package grpc_log;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "pkg/domain/grpc_log";
+
+message LogRequest {
+  enum Actions {
+    REGISTER = 0;
+    LOGIN = 1;
+    CREATE = 2;
+    UPDATE = 3;
+    GET = 4;
+    DELETE = 5;
+  }
+  enum Entities {
+    USER = 0;
+    CHECKLIST = 1;
+  }
+
+  int64 log_msg_id = 1;
+  Actions action = 2;
+  Entities entity = 3;
+  int64 entity_id = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message Response {
+  int64 log_msg_id = 1;
+}
+
+service GrpcLogService {
+  rpc Log(LogRequest) returns (Response) {}
+}
